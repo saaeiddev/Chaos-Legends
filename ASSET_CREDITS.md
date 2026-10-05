@@ -39,3 +39,10 @@ The complete font license is bundled at `public/assets/fonts/OFL.txt`.
 CC0: https://creativecommons.org/publicdomain/zero/1.0/
 
 All source assets are bundled locally; production URLs are repository-relative.
+
+## Third-party code
+
+Three.js 0.180.0 and the Vite 6.4.3 generated preload helper use MIT licenses.
+Their copyright and permission notices are included in
+[THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md). Runtime Three.js bundles
+also retain the upstream copyright and SPDX license header.

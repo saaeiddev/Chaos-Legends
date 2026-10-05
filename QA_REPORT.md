@@ -25,4 +25,26 @@ colormap textures, local fonts, CSS, JavaScript chunks and the icon.
 Hardware 60 FPS is a design target. This test environment uses software
 rendering and is not a representative desktop GPU performance benchmark.
 
-Live deployment verification is recorded after publication.
+## Live deployment verification
+
+Verified on 2026-10-05 at:
+https://saaeiddev.github.io/Chaos-Legends/
+
+Tested gameplay commit: `c046b9b2094275095ff62744c6fe7c45140e6dc9`.
+GitHub Actions build, seven unit tests, and Pages publication succeeded:
+https://github.com/saaeiddev/Chaos-Legends/actions/runs/37323208544
+
+All **25 browser checks passed against the real public HTTPS deployment**.
+All 42 critical 3D assets loaded. No critical console errors or failed asset
+requests were recorded. The complete objective sequence, boss, mission result,
+checkpoint reload, audio, pause, restart, and mobile fallback passed.
+
+The restricted test environment uses an HTTPS proxy. Packaged headless Chromium
+needed a proxy certificate workaround; the live entry was also independently
+fetched with the system HTTPS trust store. The deployed game's HTTPS and runtime
+code were unchanged.
+
+This is automated functional coverage with deterministic late-mission setups,
+not a hardware GPU performance benchmark or a recorded human playthrough.
+The final documentation update adds this report and dependency license notices;
+it does not change the tested game or production assets.
