@@ -1,0 +1,11 @@
+Quaternius — "Monster Pack Animated" (Bat, Dragon, Slime; Skeleton omitted)
+License: CC0 1.0 Universal (Public Domain Dedication)
+Source:  https://quaternius.itch.io/lowpoly-animated-monsters
+Author:  Quaternius (https://quaternius.com)  — all Quaternius packs are CC0.
+Note:    The distributed ZIP shipped no bundled license file; CC0 status was
+         verified on the source page above (states "CC0 License,
+         creativecommons.org/publicdomain/zero/1.0"). Recorded here as provenance.
+Pipeline: FBX -> GLB via Blender (headless), animation actions renamed to
+         CAIRNFALL's CharacterVisual convention (Idle / Running_A /
+         2H_Melee_Attack_Chop / Death_A). Meshes use glTF material baseColor
+         (no texture maps). ORIGINAL third-party CC0 art, unmodified geometry.

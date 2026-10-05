@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { Collision } from '../src/world/Collision.js';
+import { raySphere } from '../src/combat/Combat.js';
+import { WEAPONS,OBJECTIVES } from '../src/config.js';
+import { clamp,angleDamp } from '../src/utils/math.js';
+test('solid walls reject a player approaching from outside and inside',()=>{const c=new Collision();c.box(0,-5,4,1,-1,4);const p={x:0,y:0,z:-4.6};c.resolve(p,.38);assert.ok(p.z>=-4.12);const inside={x:.1,y:0,z:-5};c.resolve(inside,.38);assert.ok(inside.z>=-4.12||inside.z<=-5.88||inside.x>=2.38||inside.x<=-2.38);});
+test('a jump above a low obstacle does not collide with its footprint',()=>{const c=new Collision();c.box(0,0,2,2,-1,1);const p={x:0,y:1.1,z:0};c.resolve(p,.4);assert.equal(p.x,0);assert.equal(p.z,0);});
+test('closed barricades occlude shots and opened barricades allow them',()=>{const c=new Collision();const b=c.box(0,-46,7,.7,-5,4);const origin={x:0,y:1.4,z:-40},dir={x:0,y:0,z:-1};assert.ok(Math.abs(c.ray(origin,dir,80)-5.65)<1e-6);b.active=false;assert.equal(c.ray(origin,dir,80),80);});
+test('cover blocks ranged line of sight without blocking a path above it',()=>{const c=new Collision();c.box(0,-4,2,1,0,3);assert.equal(c.lineClear({x:0,y:1,z:0},{x:0,y:1,z:-8}),false);assert.equal(c.lineClear({x:0,y:4,z:0},{x:0,y:4,z:-8}),true);});
+test('bullet intersection distinguishes a hit, miss, and target behind the muzzle',()=>{const origin={x:0,y:1,z:0},dir={x:0,y:0,z:-1};assert.equal(raySphere(origin,dir,{x:0,y:1,z:-10},1),9);assert.equal(raySphere(origin,dir,{x:3,y:1,z:-10},1),Infinity);assert.equal(raySphere(origin,dir,{x:0,y:1,z:10},1),Infinity);});
+test('weapon balance gives four distinct mechanics and valid ammunition',()=>{assert.equal(WEAPONS.length,4);assert.equal(new Set(WEAPONS.map(w=>w.rate)).size,4);assert.ok(WEAPONS[1].pellets>1);assert.ok(WEAPONS[2].spread<WEAPONS[0].spread);assert.ok(WEAPONS.every(w=>w.mag>0&&w.reserve>=w.mag&&w.reload>0));assert.equal(OBJECTIVES.length,7);});
+test('character rotation crosses the wrap smoothly',()=>{const start=Math.PI-.02,target=-Math.PI+.02;assert.ok(Math.abs(angleDamp(start,target,10,.1)-start)<.04);assert.equal(clamp(-10,0,100),0);});

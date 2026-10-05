@@ -1,0 +1,4 @@
+# Preserve upstream licenses and generated shader sources without whitespace lint.
+assets/** -whitespace
+docs/** -whitespace
+public/assets/** -whitespace
